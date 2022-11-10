@@ -1,7 +1,8 @@
+import os
 import cv2
 
 
-def main(image: str) -> None:
+def convert_drawing(image: str) -> list:
     # Считаем изображение
     img = cv2.imread(image)
 
@@ -16,16 +17,34 @@ def main(image: str) -> None:
 
     # Инвертируем изображение. Преобразуем в карандашный рисунок
     inverted_blured = 255 - blured
-    pencil_scetch = cv2.divide(gray_img, inverted_blured, scale=256.0)
-
+    pencil_sketch = cv2.divide(gray_img, inverted_blured, scale=256.0)
+    return pencil_sketch
     # Показываем изображение в оригинале и карандаш.
     # cv2.imshow('Original', img)
-    # cv2.imshow('Scetch', pencil_scetch)
+    # cv2.imshow('Sketch', pencil_sketch)
     # cv2.waitKey(0)
 
-    cv2.imwrite(f'new_{image}', pencil_scetch)
+
+def save_drawing(image: str, sketch: list) -> None:
+    cv2.imwrite(f'image\\new_{image}', sketch)
+
+
+def get_files(path: str) -> list:
+    return [f"{path}\\{p}" for p in os.listdir(path)]
+
+
+def main(arr_img: list):
+    print(arr_img)
+    for img in arr_img:
+        print(img)
+        # convert_drawing(img)
 
 
 if __name__ == '__main__':
-    image = 'image.jpg'
-    main(image)
+    path = 'image'
+    main(get_files(path))
+    # main(res)
+    # print(res)
+    # print(get_files(path))
+    # img = convert_drawing('image\\WhatsApp Image 2022-02-14 at 21.19.21.jpeg')
+    # save_drawing('WhatsApp Image 2022-02-14 at 21.19.21.jpeg', img)
