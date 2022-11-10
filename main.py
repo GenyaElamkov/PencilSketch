@@ -22,31 +22,27 @@ def convert_drawing(image: str) -> list:
     return pencil_sketch
 
 
-def save_drawing(path: str, image: str, sketch: list) -> None:
-    cv2.imwrite(f'{path}\\new_{image}', sketch)
+def save_drawing(folder: str, image: str, sketch: list) -> None:
+    cv2.imwrite(f'{folder}\\new_{image}', sketch)
 
 
-def get_files(path: str) -> list:
-    return [f"{path}\\\\{p}" for p in os.listdir(path)]
+def get_files(folder: str) -> list:
+    return [f"{folder}\\\\{p}" for p in os.listdir(folder)]
 
 
 def main(path: str) -> None:
     for img in get_files(path):
         sketch = convert_drawing(img)
-        res = img.replace(img[:img.rfind('\\') + 1], '')
-        save_drawing(path, res, sketch)
+        name = img.replace(img[:img.rfind('\\') + 1], '')
+        save_drawing(path, name, sketch)
 
 
 if __name__ == '__main__':
-    path = 'image'
-    if not os.path.exists(path):
-        os.makedirs(path)
+    folder = 'image'
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
-    input(f'[!] Положите фотографии в папку [{path}], нажмите "Enter"')
-    main(path)
-    print(f'Ваши конвертированные фотографии сохранены в папке [{path}]')
+    input(f'[!] Положите фотографии в папку [{folder}], нажмите "Enter"')
+    main(folder)
+    print(f'Ваши конвертированные фотографии сохранены в папке [{folder}]')
     input('Для выхода нажмите "Enter"')
-    # Показываем изображение в оригинале и карандаш.
-    # cv2.imshow('Original', img)
-    # cv2.imshow('Sketch', pencil_sketch)
-    # cv2.waitKey(0)
