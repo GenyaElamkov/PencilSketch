@@ -27,5 +27,5 @@ def main(image: str) -> None:
 
 
 if __name__ == '__main__':
-    image = 'dother.jpeg'
+    image = 'image.jpg'
     main(image)
