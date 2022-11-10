@@ -22,8 +22,8 @@ def convert_drawing(image: str) -> list:
     return pencil_sketch
 
 
-def save_drawing(image: str, sketch: list) -> None:
-    cv2.imwrite(f'image\\new_{image}', sketch)
+def save_drawing(path: str, image: str, sketch: list) -> None:
+    cv2.imwrite(f'{path}\\new_{image}', sketch)
 
 
 def get_files(path: str) -> list:
@@ -34,13 +34,18 @@ def main(path: str) -> None:
     for img in get_files(path):
         sketch = convert_drawing(img)
         res = img.replace(img[:img.rfind('\\') + 1], '')
-        save_drawing(res, sketch)
+        save_drawing(path, res, sketch)
 
 
 if __name__ == '__main__':
     path = 'image'
-    main(path)
+    if not os.path.exists(path):
+        os.makedirs(path)
 
+    input(f'[1] Положите фотографии в папку [{path}], нажмите "Enter"')
+    main(path)
+    print(f'Ваши конвертированные фотографии сохранены в папке [{path}]')
+    input('Для выхода нажмите "Enter"')
     # Показываем изображение в оригинале и карандаш.
     # cv2.imshow('Original', img)
     # cv2.imshow('Sketch', pencil_sketch)
