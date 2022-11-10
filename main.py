@@ -42,7 +42,7 @@ if __name__ == '__main__':
     if not os.path.exists(path):
         os.makedirs(path)
 
-    input(f'[1] Положите фотографии в папку [{path}], нажмите "Enter"')
+    input(f'[!] Положите фотографии в папку [{path}], нажмите "Enter"')
     main(path)
     print(f'Ваши конвертированные фотографии сохранены в папке [{path}]')
     input('Для выхода нажмите "Enter"')
