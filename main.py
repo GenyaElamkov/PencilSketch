@@ -27,14 +27,15 @@ def save_drawing(folder: str, image: str, sketch: list) -> None:
 
 
 def get_files(folder: str) -> list:
+    """Возвращает путь к файлу изображения."""
     return [f"{folder}\\\\{p}" for p in os.listdir(folder)]
 
 
-def main(path: str) -> None:
-    for img in get_files(path):
-        sketch = convert_drawing(img)
-        name = img.replace(img[:img.rfind('\\') + 1], '')
-        save_drawing(path, name, sketch)
+def main(folder: str) -> None:
+    for path in get_files(folder):
+        sketch = convert_drawing(path)
+        name = path.replace(path[:path.rfind('\\') + 1], '')
+        save_drawing(folder, name, sketch)
 
 
 if __name__ == '__main__':
